@@ -1,20 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-// Define the route to the dashboard
-Route::get('/dashboard', 'TaskController@index')->name('dashboard');
+// Import the TaskController
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,7 +14,6 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [TaskController::class, 'index'])->name('dashboard'); // Use the TaskController's index method
+    Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create'); // Add this line for task creation
 });
