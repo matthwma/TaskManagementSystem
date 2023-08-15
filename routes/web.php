@@ -16,4 +16,5 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', [TaskController::class, 'index'])->name('dashboard'); // Use the TaskController's index method
     Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create'); // Add this line for task creation
+    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
 });
